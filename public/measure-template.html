@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Template Region Measurer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #222; color: #fff; font-family: monospace; }
+#container { position: relative; display: inline-block; }
+#container img { display: block; }
+#coords { position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.85); padding: 10px; border-radius: 4px; z-index: 100; font-size: 14px; }
+</style>
+</head>
+<body>
+<div id="coords">Move mouse over image. Click to log coordinate.</div>
+<div id="container">
+<img id="img" src="/assets/final-builder-id-template.png" />
+</div>
+<script>
+const img = document.getElementById('img');
+const coords = document.getElementById('coords');
+const logged = [];
+
+img.addEventListener('mousemove', (e) => {
+  const rect = img.getBoundingClientRect();
+  const scaleX = img.naturalWidth / rect.width;
+  const scaleY = img.naturalHeight / rect.height;
+  const x = Math.round((e.clientX - rect.left) * scaleX);
+  const y = Math.round((e.clientY - rect.top) * scaleY);
+  coords.innerHTML = `Native: ${x}, ${y} | Image: ${img.naturalWidth}x${img.naturalHeight}<br>Logged: ${logged.length} points`;
+});
+
+img.addEventListener('click', (e) => {
+  const rect = img.getBoundingClientRect();
+  const scaleX = img.naturalWidth / rect.width;
+  const scaleY = img.naturalHeight / rect.height;
+  const x = Math.round((e.clientX - rect.left) * scaleX);
+  const y = Math.round((e.clientY - rect.top) * scaleY);
+  logged.push({x, y});
+  console.log(`Point ${logged.length}: (${x}, ${y})`);
+});
+</script>
+</body>
+</html>

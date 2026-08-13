@@ -1,0 +1,348 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FBF7EA;
+    color: #102D27;
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  ::selection {
+    background-color: #E65324;
+    color: #FBF7EA;
+  }
+}
+
+/* ======================================
+   GOA VINTAGE PAPER TEXTURE
+   ====================================== */
+.goa-paper-bg {
+  background-color: #FBF7EA;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(7, 61, 49, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(230, 83, 36, 0.04) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* ======================================
+   CUSTOM ANIMATIONS
+   ====================================== */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out both;
+}
+
+/* ======================================
+   GOA DESIGN SYSTEM — VINTAGE CARD
+   ====================================== */
+.goa-card {
+  position: relative;
+  background-color: #FBF7EA;
+  border: 2px solid rgba(7, 61, 49, 0.15);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.goa-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(230, 83, 36, 0.2);
+  border-radius: 0.75rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.goa-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ======================================
+   VINTAGE DOUBLE BORDER
+   ====================================== */
+.vintage-border {
+  position: relative;
+  border: 2px solid #073D31;
+}
+
+.vintage-border::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid #E65324;
+  pointer-events: none;
+}
+
+/* ======================================
+   ORANGE CTA BUTTON
+   ====================================== */
+.btn-goa-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background-color: #E65324;
+  color: #FBF7EA;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(230, 83, 36, 0.3);
+}
+
+.btn-goa-primary:hover {
+  background-color: #F47A27;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(230, 83, 36, 0.4);
+}
+
+.btn-goa-primary:active {
+  transform: translateY(0);
+}
+
+.btn-goa-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: #073D31;
+  color: #F5EEDC;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  border: 2px solid rgba(245, 238, 220, 0.15);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-goa-secondary:hover {
+  background-color: #0B3028;
+  border-color: rgba(245, 238, 220, 0.3);
+}
+
+.btn-goa-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #073D31;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  border: 2px solid rgba(7, 61, 49, 0.25);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-goa-outline:hover {
+  border-color: #E65324;
+  color: #E65324;
+}
+
+/* ======================================
+   FORM INPUT STYLES
+   ====================================== */
+.goa-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  background-color: #FBF7EA;
+  border: 1.5px solid rgba(7, 61, 49, 0.2);
+  border-radius: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9375rem;
+  color: #102D27;
+  transition: all 0.2s ease;
+}
+
+.goa-input:focus {
+  outline: none;
+  border-color: #E65324;
+  box-shadow: 0 0 0 3px rgba(230, 83, 36, 0.1);
+}
+
+.goa-input::placeholder {
+  color: #769487;
+}
+
+/* ======================================
+   GOA LABEL
+   ====================================== */
+.goa-label {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  color: #073D31;
+  margin-bottom: 0.375rem;
+  text-transform: uppercase;
+}
+
+/* ======================================
+   STACK CHIP
+   ====================================== */
+.goa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #FBF7EA;
+  border: 1.5px solid rgba(7, 61, 49, 0.2);
+  border-radius: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #073D31;
+}
+
+.goa-chip button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #769487;
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.goa-chip button:hover {
+  color: #E65324;
+}
+
+/* ======================================
+   DROPZONE
+   ====================================== */
+.goa-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  background-color: rgba(251, 247, 234, 0.6);
+  border: 2px dashed rgba(7, 61, 49, 0.3);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goa-dropzone:hover {
+  border-color: #E65324;
+  background-color: rgba(230, 83, 36, 0.04);
+}
+
+.goa-dropzone.dragging {
+  border-color: #E65324;
+  background-color: rgba(230, 83, 36, 0.08);
+  transform: scale(1.01);
+}
+
+/* ======================================
+   PHOTO FRAME
+   ====================================== */
+.goa-photo-frame {
+  position: relative;
+  background-color: #0B3028;
+  border: 3px solid rgba(245, 238, 220, 0.3);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* ======================================
+   RESPONSIVE UTILITIES
+   ====================================== */
+@media (max-width: 640px) {
+  .btn-goa-primary {
+    font-size: 1.125rem;
+    padding: 0.75rem 1rem;
+  }
+}
