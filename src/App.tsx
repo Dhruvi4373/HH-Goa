@@ -21,27 +21,36 @@ export const App: React.FC = () => {
   } = useBuilder();
 
   if (state.step === 1) {
+    return <UploadStep onImageSelected={setImage} />;
+  }
+
+  if (state.step === 3) {
     return (
-      <div className="min-h-screen bg-[#EFEAD5] flex items-center justify-center p-4 sm:p-8 font-sans text-goa-ink selection:bg-goa-orange selection:text-white">
-        <UploadStep onImageSelected={setImage} />
-      </div>
+      <DetailsStep
+        initialDetails={state.details}
+        onGenerate={async (newDetails) => {
+          await generateCard(newDetails);
+        }}
+      />
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-goa-paper text-goa-ink selection:bg-goa-orange selection:text-white">
+    <div className="h-[100dvh] overflow-hidden flex flex-col bg-goa-paper text-goa-ink selection:bg-goa-orange selection:text-white">
       {/* Top Global Header Bar */}
       <Header />
 
-      {/* Progress Navigation Bar */}
-      <ProgressSteps
-        currentStep={state.step}
-        onStepClick={(step) => {
-          if (step < state.step) {
-            setStep(step);
-          }
-        }}
-      />
+      {/* Progress Navigation Bar — only on step 2 */}
+      {state.step === 2 && (
+        <ProgressSteps
+          currentStep={state.step}
+          onStepClick={(step) => {
+            if (step < state.step) {
+              setStep(step);
+            }
+          }}
+        />
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-4 sm:py-8 flex flex-col items-center justify-center">
@@ -52,16 +61,6 @@ export const App: React.FC = () => {
             onTransformChange={setTransform}
             onNext={() => setStep(3)}
             onChangePhoto={() => setStep(1)}
-          />
-        )}
-
-        {state.step === 3 && (
-          <DetailsStep
-            initialDetails={state.details}
-            onGenerate={async (newDetails) => {
-              updateDetails(newDetails.name, newDetails.role, newDetails.stack);
-              await generateCard();
-            }}
           />
         )}
 
@@ -89,16 +88,18 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Global Footer */}
-      <footer className="w-full py-4 text-center border-t border-goa-orange/20 text-xs font-sans text-goa-muted font-medium bg-goa-paper/90">
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-4">
-          <span>HH GOA 2026 OFFICIAL BUILDER ID GENERATOR</span>
-          <span className="hidden sm:inline">•</span>
-          <span className="text-goa-orange font-bold">#FrameInGoa</span>
-          <span className="hidden sm:inline">•</span>
-          <span>NO LOGIN | NO SIGNUP | 100% BROWSER PRIVACY</span>
-        </div>
-      </footer>
+      {/* Global Footer — only on step 2 */}
+      {state.step === 2 && (
+        <footer className="w-full py-4 text-center border-t border-goa-orange/20 text-xs font-sans text-goa-muted font-medium bg-goa-paper/90">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-4">
+            <span>HH GOA 2026 OFFICIAL BUILDER ID GENERATOR</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="text-goa-orange font-bold">#FrameInGoa</span>
+            <span className="hidden sm:inline">•</span>
+            <span>NO LOGIN | NO SIGNUP | 100% BROWSER PRIVACY</span>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };

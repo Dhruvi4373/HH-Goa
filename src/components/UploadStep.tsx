@@ -1,29 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { processImageFile } from '../utils/imageProcessing';
-import { SunMotif, CornerOrnaments, WaveLine } from './GoaDecorations';
-
-/* ─── tiny inline icons ─── */
-const UploadArrow = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-5 h-5">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5M5 12l7-7 7 7" />
-  </svg>
-);
-
-const CheckMark = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-[10px] h-[10px]">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.5l3.5 3.5L13 4" />
-  </svg>
-);
-
-const CrossMark = () => (
-  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-[10px] h-[10px]">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4l8 8M12 4l-8 8" />
-  </svg>
-);
-
-/* ═══════════════════════════════════════════════════
-   UPLOAD STEP — Screen 01 card
-   ═══════════════════════════════════════════════════ */
+import { File } from 'lucide-react';
 
 interface UploadStepProps {
   onImageSelected: (imageSrc: string) => void;
@@ -56,179 +33,150 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onImageSelected }) => {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    if (e.dataTransfer.files?.[0]) handleFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files?.[0]) {
+      handleFile(e.dataTransfer.files[0]);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) handleFile(e.target.files[0]);
+    if (e.target.files?.[0]) {
+      handleFile(e.target.files[0]);
+    }
   };
 
   return (
     <div
-      className="relative w-full max-w-[420px] mx-auto flex flex-col border-[1.5px] border-[#1A3C30] rounded-xl overflow-hidden aspect-[0.66] min-h-[640px]"
-      style={{ boxShadow: '0 8px 32px rgba(7,61,49,0.15)' }}
+      className="w-full h-[100dvh] min-h-[100dvh] overflow-hidden relative bg-cover md:bg-[length:100%_100%] font-sans text-[#102D27] selection:bg-[#E65324] selection:text-white"
+      style={{
+        backgroundImage: "url('/assets/screen1-bg.png')",
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        zIndex: 0,
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDragging(true);
+      }}
+      onDragLeave={() => setIsDragging(false)}
+      onDrop={handleDrop}
     >
-        {/*
-          LAYER 1: ARTWORK – fills entire card using portrait illustration
-        */}
-        <img
-          src="/screen1-art-portrait.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none z-0"
-          style={{ objectPosition: 'center' }}
-          draggable={false}
-        />
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleInputChange}
+        accept="image/jpeg,image/png,image/heic,image/heif,image/webp"
+        className="hidden"
+      />
 
-        {/*
-          LAYER 2: SUBTLE READABILITY OVERLAY – gradient from cream at top fading to transparent, with a slight dark green hint at bottom.
-        */}
-        <div
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: `linear-gradient(to bottom, rgba(251,247,234,0.95) 0%, rgba(251,247,234,0.75) 25%, rgba(251,247,234,0) 60%, rgba(7,61,49,0.6) 100%)`
-          }}
-        />
-        
-        <div className="relative z-10 flex flex-col h-full p-6 pb-5">
-        
-        {/* --- TOP SECTION (Typography) --- */}
-        <div className="flex-shrink-0">
-          {/* Header */}
-          <div className="flex justify-between items-start">
-            <div className="leading-none select-none">
-              <div className="font-display text-[28px] text-[#073D31] tracking-wide" style={{ lineHeight: 0.9 }}>
-                HH GOA
-              </div>
-              <div className="font-display text-[14px] text-[#E65324] tracking-[0.25em] mt-0.5">
-                2026
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5 pt-1 select-none">
-              <span className="font-display text-[11px] tracking-[0.18em] text-[#073D31] uppercase">
-                BUILDER ID
-              </span>
-              <SunMotif size={18} className="text-[#E65324]" />
-            </div>
-          </div>
-
-          {/* Main Headline */}
-          <div className="pt-5">
+      {/* Central upload panel */}
+      <div
+        className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[calc(100vw-32px)] md:w-[38vw] lg:w-[22vw] max-w-[420px] h-auto flex flex-col justify-between items-center text-center p-5 md:p-6"
+        style={{
+          minHeight: 'clamp(280px, 34vh, 360px)',
+          background: 'rgba(247, 239, 217, 0.15)',
+          border: '1.5px dashed rgba(27, 58, 42, 0.75)',
+          borderRadius: '12px',
+          backdropFilter: 'blur(16px)',
+          zIndex: 10,
+        }}
+      >
+        <div className="flex flex-col items-center justify-between h-full py-1 px-1 w-full gap-3">
+          {/* HEADING & SUBTEXT */}
+          <div className="flex flex-col items-center gap-1">
             <h1
-              className="font-display text-[#073D31] leading-[0.88] tracking-wide select-none"
-              style={{ fontSize: 'clamp(46px, 12vw, 56px)' }}
+              className="font-sans font-bold text-center text-[#073f2b] tracking-wide"
+              style={{
+                fontSize: 'clamp(18px, 1.6vw, 26px)',
+                lineHeight: 1.1,
+              }}
             >
-              MAKE YOUR<br />BUILDER ID.
+              BUILDER ID CARD GENERATOR
             </h1>
-          </div>
-
-          {/* Orange Subhead */}
-          <div className="pt-2">
-            <p className="font-display text-[18px] text-[#E65324] tracking-[0.08em] leading-none select-none italic">
-              THEN GO BUILD.
+            <p
+              className="font-sans text-[#172d23] text-center"
+              style={{
+                fontSize: 'clamp(12px, 1vw, 16px)',
+                lineHeight: 1.4,
+              }}
+            >
+              Upload your photo and create
+              <br />
+              your personalised HH Goa 2026 Builder ID.
             </p>
           </div>
 
-          {/* Body Copy */}
-          <div className="pt-2">
-            <p className="font-sans text-[12px] leading-[1.35] text-[#102D27]/80 max-w-[220px]">
-              Upload a photo and get your official HH Goa 2026 Builder ID.
+          {/* PRIMARY UPLOAD BUTTON & SECONDARY TEXT */}
+          <div className="flex flex-col items-center w-full gap-1.5">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={loading}
+              className="bg-[#07502f] hover:bg-[#09643b] text-[#f8efd8] border border-[#d7aa32] font-bold transition-colors select-none flex items-center justify-center cursor-pointer"
+              style={{
+                width: 'min(220px, 75%)',
+                height: 'clamp(40px, 4.5vh, 50px)',
+                borderRadius: '10px',
+                fontSize: 'clamp(14px, 1.2vw, 19px)',
+                zIndex: 20,
+              }}
+            >
+              {loading ? 'PROCESSING...' : 'UPLOAD PHOTO'}
+            </button>
+            <p
+              className="text-[#172d23] font-normal"
+              style={{
+                fontSize: 'clamp(12px, 1vw, 16px)',
+              }}
+            >
+              or drag and drop here
             </p>
-          </div>
-        </div>
-
-        {/* Spacer to push upload box to the lower-middle (over the artwork) */}
-        <div className="flex-grow flex items-end justify-center pb-2">
-          
-          {/* --- MIDDLE SECTION (Upload Dropzone) --- */}
-          <div
-            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-            onDragLeave={() => setIsDragging(false)}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={[
-              'w-full max-w-[280px] py-4 px-4 rounded-xl cursor-pointer',
-              'flex flex-col items-center justify-center text-center',
-              'transition-all duration-200',
-              'border-[1px]',
-              'backdrop-blur-[10px]',
-              isDragging
-                ? 'border-[#E65324] bg-[rgba(251,247,234,0.78)] scale-[1.02] shadow-xl'
-                : 'border-[#1A3C30]/20 bg-[rgba(251,247,234,0.74)] hover:border-[#E65324] hover:shadow-lg',
-            ].join(' ')}
-            style={{ boxShadow: '0 8px 32px rgba(7,61,49,0.12)' }}
-          >
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleInputChange}
-              accept="image/jpeg,image/png,image/heic,image/heif,image/webp"
-              className="hidden"
-            />
-
-            {loading ? (
-              <div className="flex flex-col items-center py-2">
-                <div className="w-8 h-8 border-[3px] border-[#E65324] border-t-transparent rounded-full animate-spin mb-3" />
-                <span className="font-display text-[13px] text-[#073D31] tracking-wider">PROCESSING…</span>
-              </div>
-            ) : (
-              <>
-                {/* Upload circle icon */}
-                <div className="w-9 h-9 rounded-full border-[1.5px] border-[#1A3C30] text-[#1A3C30] flex items-center justify-center mb-2.5">
-                  <UploadArrow />
-                </div>
-
-                <p className="font-display text-[14px] text-[#073D31] tracking-wide leading-none mb-1">
-                  DROP YOUR PHOTO HERE
-                </p>
-                <p className="font-sans text-[10.5px] text-[#073D31]/60 mb-2.5">
-                  or choose from device
-                </p>
-
-                <span className="font-sans text-[9px] tracking-[0.15em] text-[#073D31]/50 uppercase font-semibold">
-                  JPG &bull; PNG &bull; HEIC
-                </span>
-              </>
+            {errorMsg && (
+              <p className="text-xs text-red-700 font-medium bg-[#f8efd8]/90 px-3 py-1 rounded border border-red-300 text-center max-w-[280px] mt-1">
+                {errorMsg}
+              </p>
             )}
           </div>
-        </div>
 
-        {errorMsg && (
-          <div className="flex justify-center mt-2">
-            <p className="text-[11px] text-red-700 font-medium bg-white/95 px-3 py-1 rounded border border-red-200 text-center max-w-[280px]">
-              {errorMsg}
+          {/* FILE FORMAT DISPLAY & SUPPORTED FORMATS */}
+          <div className="flex flex-col items-center gap-1 w-full">
+            <div className="flex items-center justify-center gap-5">
+              <div
+                className="flex items-center gap-1 text-[#172d23] font-semibold"
+                style={{
+                  fontSize: 'clamp(13px, 1.1vw, 17px)',
+                }}
+              >
+                <File size={14} className="stroke-[2.5]" />
+                <span>JPG</span>
+              </div>
+              <div
+                className="flex items-center gap-1 text-[#172d23] font-semibold"
+                style={{
+                  fontSize: 'clamp(13px, 1.1vw, 17px)',
+                }}
+              >
+                <File size={14} className="stroke-[2.5]" />
+                <span>PNG</span>
+              </div>
+              <div
+                className="flex items-center gap-1 text-[#172d23] font-semibold"
+                style={{
+                  fontSize: 'clamp(13px, 1.1vw, 17px)',
+                }}
+              >
+                <File size={14} className="stroke-[2.5]" />
+                <span>HEIC</span>
+              </div>
+            </div>
+            <p
+              className="text-[#172d23] font-normal"
+              style={{
+                fontSize: 'clamp(11px, 0.9vw, 14px)',
+              }}
+            >
+              Supported formats
             </p>
           </div>
-        )}
-
-        {/* Spacer for bottom */}
-        <div className="h-3 flex-shrink-0" />
-
-        {/* --- BOTTOM SECTION (Footer) --- */}
-        <div className="flex-shrink-0">
-          {/* Bottom Badge Strip */}
-          <div className="flex items-center justify-center gap-2.5 text-[#FBF7EA] mb-2">
-            <span className="flex items-center gap-1 font-display text-[10px] tracking-[0.12em] uppercase">
-              <CheckMark /> NO LOGIN
-            </span>
-            <span className="opacity-40">|</span>
-            <span className="flex items-center gap-1 font-display text-[10px] tracking-[0.12em] uppercase">
-              <CrossMark /> NO SIGNUP
-            </span>
-            <span className="opacity-40">|</span>
-            <span className="font-display text-[10px] tracking-[0.12em] uppercase font-bold italic">
-              JUST BUILD
-            </span>
-          </div>
-
-          {/* Hashtag + Wave */}
-          <div className="flex justify-between items-end w-full">
-            <span className="font-display text-[16px] text-[#E65324] tracking-wider italic select-none">
-              #FrameInGoa
-            </span>
-            <WaveLine className="w-14 h-3 text-[#E65324]" />
-          </div>
         </div>
-
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { BuilderState, ImageTransform, Step } from '../types/builder';
+import { BuilderState, ImageTransform, Step, BuilderDetails } from '../types/builder';
 import { generateBuilderIdNumber, generateBuilderClass } from '../utils/generateBuilderId';
 import { generateCardCanvas } from '../utils/generateCard';
 
@@ -11,10 +11,10 @@ export function useBuilder() {
     imageSrc: null,
     imageTransform: initialTransform,
     details: {
-      name: 'Palak Shekhada',
+      name: '',
       role: 'Developer',
-      stack: ['Next.js', 'Python', 'AI'],
-      builderClass: 'THE SIGNAL HUNTER'
+      stack: [],
+      builderClass: ''
     },
     builderId: generateBuilderIdNumber(),
     cardDataUrl: null
@@ -47,17 +47,20 @@ export function useBuilder() {
     }));
   }, []);
 
-  const generateCard = useCallback(async () => {
+  const generateCard = useCallback(async (customDetails?: BuilderDetails) => {
     if (!state.imageSrc) return;
     setIsGenerating(true);
+    
+    const activeDetails = customDetails || state.details;
+
     try {
       const dataUrl = await generateCardCanvas(
         state.imageSrc,
         state.imageTransform,
-        state.details,
+        activeDetails,
         state.builderId
       );
-      setState(prev => ({ ...prev, cardDataUrl: dataUrl, step: 4 }));
+      setState(prev => ({ ...prev, details: activeDetails, cardDataUrl: dataUrl, step: 4 }));
     } catch (err) {
       console.error('Failed to generate builder card canvas:', err);
     } finally {

@@ -177,7 +177,7 @@ export async function generateCardCanvas(
   // Rider
   drawFittedText(
     ctx,
-    (details.name || 'PALAK SHEKHADA').toUpperCase(),
+    (details.name || '').toUpperCase(),
     CARD_LAYOUT.rider
   );
 

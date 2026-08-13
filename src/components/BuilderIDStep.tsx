@@ -47,13 +47,13 @@ export const BuilderIDStep: React.FC<BuilderIDStepProps> = ({
       </div>
 
       {!isGenerating && (
-        <div className="mt-8">
+        <div className="mt-3">
           <button
             onClick={onNext}
-            className="px-8 py-4 bg-goa-orange hover:bg-goa-sun text-white font-display text-2xl font-extrabold tracking-wider rounded-xl shadow-goa-btn hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2"
+            className="px-6 py-3 bg-goa-green hover:bg-goa-dark text-goa-paper font-display text-xl font-extrabold tracking-wider rounded-xl shadow-goa-card hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 border border-goa-orange/30"
           >
             <span>PROCEED TO DOWNLOAD</span>
-            <ArrowRight className="w-6 h-6 stroke-[2.5]" />
+            <ArrowRight className="w-5 h-5 stroke-[2.5]" />
           </button>
         </div>
       )}

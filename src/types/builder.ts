@@ -11,6 +11,8 @@ export interface BuilderDetails {
   role: string;
   stack: string[];
   builderClass: string;
+  team?: string;
+  status?: string;
 }
 
 export interface BuilderState {

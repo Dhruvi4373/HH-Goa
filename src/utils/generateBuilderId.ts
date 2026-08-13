@@ -40,23 +40,7 @@ const SUFFIXES = [
 export function generateBuilderClass(role: string, stack: string[]): string {
   const combined = (role + ' ' + stack.join(' ')).toUpperCase();
   
-  if (combined.includes('AI') || combined.includes('LLM') || combined.includes('PYTHON') || combined.includes('PYTORCH')) {
-    return 'THE SIGNAL HUNTER';
-  }
-  if (combined.includes('NEXT') || combined.includes('REACT') || combined.includes('FRONTEND') || combined.includes('UI')) {
-    return 'THE PRODUCT ALCHEMIST';
-  }
-  if (combined.includes('RUST') || combined.includes('GO') || combined.includes('SYSTEM') || combined.includes('C++')) {
-    return 'THE KERNEL CRAFTER';
-  }
-  if (combined.includes('SOLANA') || combined.includes('ETH') || combined.includes('WEB3') || combined.includes('CRYPTO')) {
-    return 'THE ZERO-KNOWLEDGE VANGUARD';
-  }
-  if (combined.includes('DESIGN') || combined.includes('CSS') || combined.includes('FIGMA')) {
-    return 'THE PATTERN HUNTER';
-  }
-  
-  // Deterministic fallback hash based on character sum
+  // Deterministic hash based on character sum
   let hash = 0;
   for (let i = 0; i < combined.length; i++) {
     hash += combined.charCodeAt(i);

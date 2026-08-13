@@ -53,7 +53,7 @@ export const SharedCardPreviewStep: React.FC<SharedCardPreviewStepProps> = ({
         <div className="flex flex-col justify-between items-start space-y-6">
           <div>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-goa-green uppercase leading-none">
-              {details.name || 'PALAK SHEKHADA'}
+              {details.name || ''}
             </h2>
             <div className="font-display text-base sm:text-lg font-bold tracking-wider text-goa-orange uppercase mt-1">
               ★ {details.builderClass || 'THE SIGNAL HUNTER'} ★
