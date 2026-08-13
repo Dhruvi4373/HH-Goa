@@ -195,10 +195,16 @@ export async function generateCardCanvas(
   );
 
   // Team
-  drawFittedText(ctx, 'GOA BUILDERS', CARD_LAYOUT.team);
+  const teamText = details.team && details.team.trim()
+    ? details.team.trim().toUpperCase()
+    : 'THE GOA BUILDERS';
+  drawFittedText(ctx, teamText, CARD_LAYOUT.team);
 
   // Status
-  drawFittedText(ctx, 'BUILDING', CARD_LAYOUT.status);
+  const statusText = details.status && details.status.trim()
+    ? details.status.trim().toUpperCase()
+    : 'ACTIVE';
+  drawFittedText(ctx, statusText, CARD_LAYOUT.status);
 
   // Builder ID
   drawFittedText(

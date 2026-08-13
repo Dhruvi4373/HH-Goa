@@ -55,11 +55,8 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto aspect-[4/5.8] sm:aspect-[4/5.5] bg-goa-paper border-2 border-goa-green/30 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between">
-      <CornerOrnaments color="#E65324" />
-
-      {/* Header Bar with Progress Dots */}
-      <Header step={1} showProgress={true} />
+    <div className="relative w-full max-w-md mx-auto bg-goa-paper border-2 border-goa-green/30 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between p-3.5 sm:p-6 my-auto">
+      <CornerOrnaments color="#07502f" />
 
       {/* Tropical Palm leaves background at bottom corners */}
       <div className="absolute -left-12 -bottom-8 w-40 h-52 text-goa-green opacity-30 pointer-events-none">
@@ -70,10 +67,10 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
       </div>
 
       {/* Main Body */}
-      <div className="relative z-10 flex-1 px-6 py-4 flex flex-col items-center justify-between text-center">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-between text-center gap-2 sm:gap-3 my-auto py-1">
         {/* Title */}
         <div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-goa-green mb-0.5">
+          <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight text-goa-green mb-0.5">
             PHOTO PREVIEW
           </h2>
           <p className="text-xs text-goa-ink/80 font-sans">
@@ -83,7 +80,7 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
 
         {/* Image Frame Viewport */}
         <div
-          className="relative w-full max-w-[280px] aspect-[31/35] rounded-xl overflow-hidden border-4 border-[#FAF6E9] shadow-xl bg-goa-dark select-none touch-none cursor-grab active:cursor-grabbing my-2 group"
+          className="relative w-full max-w-[200px] xs:max-w-[220px] sm:max-w-[260px] aspect-[31/35] rounded-xl overflow-hidden border-4 border-[#FAF6E9] shadow-xl bg-goa-dark select-none touch-none cursor-grab active:cursor-grabbing group my-1"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -116,10 +113,10 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
         </div>
 
         {/* Transform Controls */}
-        <div className="flex items-center justify-center space-x-3 w-full max-w-[280px] my-1">
+        <div className="flex items-center justify-center space-x-3 w-full max-w-[240px] sm:max-w-[280px] my-1">
           <button
             onClick={() => onTransformChange({ ...transform, scale: Math.max(0.2, transform.scale - 0.1) })}
-            className="p-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full transition-colors"
+            className="p-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full transition-colors cursor-pointer"
             title="Zoom Out"
           >
             <ZoomOut className="w-4 h-4" />
@@ -127,14 +124,14 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
           
           <button
             onClick={handleReset}
-            className="flex-1 py-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full font-display text-xs font-bold tracking-wider transition-colors"
+            className="flex-1 py-1.5 sm:py-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full font-display text-xs font-bold tracking-wider transition-colors cursor-pointer"
           >
             RESET
           </button>
 
           <button
             onClick={() => onTransformChange({ ...transform, scale: Math.min(5, transform.scale + 0.1) })}
-            className="p-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full transition-colors"
+            className="p-2 bg-[#FAF6E9] border border-goa-green/30 text-goa-green hover:text-goa-orange hover:border-goa-orange rounded-full transition-colors cursor-pointer"
             title="Zoom In"
           >
             <ZoomIn className="w-4 h-4" />
@@ -144,7 +141,7 @@ export const PreviewStep: React.FC<PreviewStepProps> = ({
         {/* Primary CTA Button */}
         <button
           onClick={onNext}
-          className="w-full max-w-xs py-3.5 bg-goa-orange hover:bg-goa-sun text-white font-display text-xl font-bold tracking-wider rounded-xl shadow-goa-btn hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 mt-2"
+          className="w-full max-w-xs py-3 sm:py-3.5 bg-[#07502f] hover:bg-[#09643b] active:scale-[0.98] text-[#f8efd8] border border-[#d7aa32] font-display text-base sm:text-xl font-bold tracking-wider rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer mt-1.5"
         >
           <span>LOOKS GOOD, NEXT</span>
           <ArrowRight className="w-5 h-5 stroke-[2.5]" />

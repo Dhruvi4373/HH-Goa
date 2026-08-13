@@ -36,7 +36,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="h-[100dvh] overflow-hidden flex flex-col bg-goa-paper text-goa-ink selection:bg-goa-orange selection:text-white">
+    <div className="min-h-[100dvh] overflow-y-auto flex flex-col bg-goa-paper text-goa-ink selection:bg-goa-orange selection:text-white">
       {/* Top Global Header Bar */}
       <Header />
 
