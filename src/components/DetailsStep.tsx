@@ -33,6 +33,7 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
   const [isStackDropdownOpen, setIsStackDropdownOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setBuilderClass(
@@ -42,10 +43,10 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
+      const target = e.target as Node;
+      const insideDesktop = dropdownRef.current?.contains(target);
+      const insideMobile = mobileDropdownRef.current?.contains(target);
+      if (!insideDesktop && !insideMobile) {
         setIsStackDropdownOpen(false);
       }
     };
@@ -84,11 +85,13 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
     });
   };
 
-  const textStyle = {
+  const textStyle: React.CSSProperties = {
     fontSize: 'clamp(13px, 1.4vw, 24px)',
     fontWeight: 600,
-    lineHeight: 1.1,
-    color: '#1b3a2a'
+    lineHeight: 1,
+    color: '#1b3a2a',
+    display: 'flex',
+    alignItems: 'center'
   };
 
   return (
@@ -125,7 +128,7 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
           </div>
 
           {/* YOUR STACK */}
-          <div className="flex flex-col gap-1 relative" ref={dropdownRef}>
+          <div className="flex flex-col gap-1 relative" ref={mobileDropdownRef}>
             <label className="text-xs font-bold uppercase tracking-wider text-[#07502f]">
               YOUR STACK (MAX 5)
             </label>
@@ -305,7 +308,14 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
               required
               maxLength={40}
               className="h-full w-full bg-transparent px-1 font-semibold text-[#1b3a2a] outline-none placeholder:text-[#6b7280]"
-              style={textStyle}
+              style={{
+                fontSize: 'clamp(13px, 1.4vw, 24px)',
+                fontWeight: 600,
+                lineHeight: '100%',
+                color: '#1b3a2a',
+                paddingTop: 0,
+                paddingBottom: 0
+              }}
             />
           </div>
 
@@ -427,7 +437,14 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
               placeholder="Enter your team name"
               maxLength={40}
               className="h-full w-full bg-transparent px-1 font-semibold text-[#1b3a2a] outline-none placeholder:text-[#6b7280]"
-              style={textStyle}
+              style={{
+                fontSize: 'clamp(13px, 1.4vw, 24px)',
+                fontWeight: 600,
+                lineHeight: '100%',
+                color: '#1b3a2a',
+                paddingTop: 0,
+                paddingBottom: 0
+              }}
             />
           </div>
 
