@@ -95,7 +95,7 @@ export async function generateCardCanvas(
   await document.fonts.ready;
 
   // ── LAYER 1: Immutable master template ──
-  const templateImg = await loadImage('/assets/CHATGPT_TEMPLATE.png');
+  const templateImg = await loadImage('/assets/CHATGPT_TEMPLATE.webp');
   ctx.drawImage(templateImg, 0, 0, width, height);
 
   // ── LAYER 2: User photo inside Polaroid ──

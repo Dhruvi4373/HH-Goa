@@ -58,7 +58,7 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onImageSelected }) => {
       <div
         className="block md:hidden w-full max-w-md bg-cover bg-center rounded-3xl p-5 sm:p-6 shadow-2xl my-auto text-center border-2 border-[#1b3a2a]/30 relative overflow-hidden font-sans"
         style={{
-          backgroundImage: "url('/assets/screen1-bg.png')",
+          backgroundImage: "url('/assets/screen1-bg.webp')",
         }}
         onDragOver={(e) => {
           e.preventDefault();
@@ -137,7 +137,7 @@ export const UploadStep: React.FC<UploadStepProps> = ({ onImageSelected }) => {
         <div
           className="absolute inset-0 bg-no-repeat"
           style={{
-            backgroundImage: "url('/assets/screen1-bg.png')",
+            backgroundImage: "url('/assets/screen1-bg.webp')",
             backgroundSize: '100% 100%',
             backgroundPosition: 'center'
           }}

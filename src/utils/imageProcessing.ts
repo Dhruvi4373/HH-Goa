@@ -1,5 +1,3 @@
-import heic2any from 'heic2any';
-
 export async function processImageFile(file: File): Promise<string> {
   let fileToProcess: Blob = file;
 
@@ -8,6 +6,8 @@ export async function processImageFile(file: File): Promise<string> {
   
   if (isHeic) {
     try {
+      // Lazy-load heic2any only when needed (~500 KB saved for non-HEIC users)
+      const { default: heic2any } = await import('heic2any');
       const converted = await heic2any({
         blob: file,
         toType: 'image/jpeg',

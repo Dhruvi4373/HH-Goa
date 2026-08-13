@@ -280,7 +280,7 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({
         <div
           className="absolute inset-0 bg-no-repeat"
           style={{
-            backgroundImage: "url('/assets/details-page-bg.png')",
+            backgroundImage: "url('/assets/details-page-bg.webp')",
             backgroundSize: '100% 100%',
             backgroundPosition: 'center'
           }}
